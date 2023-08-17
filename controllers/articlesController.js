@@ -1,13 +1,16 @@
-const {client} = require("../models/db");
-
+const {Article, User} = require("../models/models");
 async function getUserArticles(userId) {
-    console.log("USERID", userId);
-    const query = await client.query(`SELECT * from public.articles where user_id = ${userId}`);
+    try {
+        const userExists = await User.findOne({where: {id: userId}});
+        if (!userExists) {
+            console.warn(`User with id ${userId} doesn't exist`);
+            return;
+        }
 
-    const queryInnerJoin = await client.query(`SELECT a.*, u.* from public.articles a inner join users u on "a".user_id = "u".id where "a".user_id = ${userId}`)
-    console.log("QUERY", queryInnerJoin.rows);
-
-    return query.rows;
+        return await Article.findAll({userId});
+    } catch(err) {
+        throw new Error(`Error while getUserArticles: ${err.message}`)
+    }
 }
 
 module.exports = { getUserArticles }

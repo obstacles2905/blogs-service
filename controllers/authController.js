@@ -1,11 +1,10 @@
 const bcrypt = require('bcrypt');
-const { client } = require("../models/db");
+const { client, User} = require("../models/models");
 
 const SALT_ROUNDS = 10;
 
 async function login(login, password) {
-    const userExists = await client.query(`SELECT * FROM users WHERE login = '${login}' AND password = '${password}'`);
-    return userExists.rows.length !== 0;
+    return !!(await User.findOne({where: {login, password}}));
 }
 
 async function register({name, login, password}) {

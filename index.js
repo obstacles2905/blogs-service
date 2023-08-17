@@ -5,7 +5,6 @@ const session = require('express-session');
 
 const { authRouter } = require("./routes/authRouter");
 const { articlesRouter } = require("./routes/articlesRouter");
-const { blogsRouter } = require("./routes/blogsRouter");
 const { commentsRouter } = require("./routes/commentsRouter");
 const { usersRouter } = require("./routes/usersRouter");
 
@@ -23,10 +22,11 @@ app.use(session({
 
 app.use('/auth', authRouter);
 app.use('/articles', articlesRouter);
-app.use('/blogs', blogsRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
 
 app.listen(port, () => {
     console.log(`Application has successfully started on port ${port}`)
 })
+
+module.exports = app;
