@@ -13,6 +13,19 @@ const sequelize = new Sequelize(
 
     });
 
+export type User = {
+    id: number,
+    name: string,
+    login: string,
+    password: string,
+    blogsAmount: number
+}
+
+export type Article = {
+    id: number,
+    title: string,
+    content: string,
+}
 export const User = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,

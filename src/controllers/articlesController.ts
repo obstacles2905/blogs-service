@@ -1,6 +1,6 @@
 import {Article, User} from "../models/models";
 
-export async function getUserArticles(userId: number) {
+export async function getUserArticles(userId: any) {
     try {
         const userExists = await User.findOne({where: {id: userId}});
         if (!userExists) {
@@ -10,7 +10,7 @@ export async function getUserArticles(userId: number) {
 
         return await Article.findAll({
             where: {
-                userId
+                id: userId
             }
         });
     } catch(err: any) {
