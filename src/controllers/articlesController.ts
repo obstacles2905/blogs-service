@@ -1,5 +1,6 @@
-const {Article, User} = require("../models/models");
-async function getUserArticles(userId) {
+import {Article, User} from "../models/models";
+
+export async function getUserArticles(userId: number) {
     try {
         const userExists = await User.findOne({where: {id: userId}});
         if (!userExists) {
@@ -7,10 +8,12 @@ async function getUserArticles(userId) {
             return;
         }
 
-        return await Article.findAll({userId});
-    } catch(err) {
+        return await Article.findAll({
+            where: {
+                userId
+            }
+        });
+    } catch(err: any) {
         throw new Error(`Error while getUserArticles: ${err.message}`)
     }
 }
-
-module.exports = { getUserArticles }

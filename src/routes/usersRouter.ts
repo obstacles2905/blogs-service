@@ -1,18 +1,13 @@
-const express = require('express');
-const usersController = require('../controllers/usersController');
+import express from "express";
 
-const usersRouter = express.Router();
+export const usersRouter = express.Router();
 
 usersRouter.get('/users', async (request, response, next) => {
-
 })
 
 usersRouter.post('/users', async (request, response, next) => {
-
+    console.log("REQUEST", request.body);
 })
 
 usersRouter.put('/users', async (request, response, next) => {
-
 })
-
-module.exports = { usersRouter };

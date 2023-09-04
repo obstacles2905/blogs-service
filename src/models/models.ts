@@ -1,20 +1,19 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
+import {DataTypes, Sequelize} from "sequelize";
+
 dotenv.config();
 
-const client = {}
-
 const sequelize = new Sequelize(
-    process.env.POSTGRES_DB,
-    process.env.POSTGRES_USER,
-    process.env.POSTGRES_PASSWORD,
+    process.env.POSTGRES_DB!,
+    process.env.POSTGRES_USER!,
+    process.env.POSTGRES_PASSWORD!,
     {
-        host: process.env.POSTGRES_HOST,
+        host: process.env.POSTGRES_HOST!,
         dialect: 'postgres',
 
     });
 
-const User = sequelize.define('users', {
+export const User = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -35,13 +34,13 @@ const User = sequelize.define('users', {
     blogsAmount: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        default: 0
+        //default: 0
     }
 }, {
     schema: 'public'
 });
 
-const Article = sequelize.define('articles', {
+export const Article = sequelize.define('articles', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -57,7 +56,7 @@ const Article = sequelize.define('articles', {
     }
 });
 
-const Comment = sequelize.define('comments', {
+export const Comment = sequelize.define('comments', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -83,5 +82,3 @@ if (!process.env.POSTGRES_SYNC_TABLES) {
         console.log('Tables synchronized');
     });
 }
-
-module.exports = { User, Article, Comment, client };
