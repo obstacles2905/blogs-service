@@ -1,6 +1,6 @@
-import express from "express";
+import express, {NextFunction} from "express";
 import {query, validationResult} from "express-validator";
-import {getUserArticles} from "../controllers/articlesController";
+import {getArticlesFromMongo, getUserArticles} from "../controllers/articlesController";
 
 export const articlesRouter = express.Router();
 
@@ -11,9 +11,14 @@ articlesRouter.get('/',
     if (!errors.isEmpty()) {
         return response.status(401).json({ errors: errors.array() });
     }
-
     const { userId } = request.query as any;
 
     const userArticles = await getUserArticles(userId);
     return response.render('articles', {articles: userArticles});
+})
+
+//@ts-ignore
+articlesRouter.get('/mongo', async(request: Request, response: Response, next: NextFunction) => {
+    await getArticlesFromMongo();
+    return response.json();
 })
