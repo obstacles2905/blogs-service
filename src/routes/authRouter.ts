@@ -1,6 +1,7 @@
 import express, {Request, Response, NextFunction} from "express";
 import {body, validationResult} from "express-validator";
 import {register} from "../controllers/authController";
+import * as fs from "fs";
 
 
 export const authRouter = express.Router();

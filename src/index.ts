@@ -5,6 +5,7 @@ import {articlesRouter} from "./routes/articlesRouter";
 import {commentsRouter} from "./routes/commentsRouter";
 import {usersRouter} from "./routes/usersRouter";
 import {authRouter} from "./routes/authRouter";
+import {playgroundRouter} from "./routes/playgroundRouter";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use('/auth', authRouter);
 app.use('/articles', articlesRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
+app.use('/playground', playgroundRouter);
 
 app.listen(port, () => {
     console.log(`Application has successfully started on port ${port}`)

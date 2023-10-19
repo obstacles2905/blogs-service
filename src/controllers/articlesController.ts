@@ -38,6 +38,8 @@ export async function getArticlesFromMongo() {
         await articlesCollection.insertOne(newArticle);
 
         const articles = await articlesCollection.findOne({content: 'content2'});
+        // articles ? response.status(200).send('some text') : response.send();
+
         return articles;
     } catch(err: any) {
         throw new Error(`Error while getArticlesFromMongo ${err.message}`);
